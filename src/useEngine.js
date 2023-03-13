@@ -23,7 +23,7 @@ export default function useEngine(){
     }), []);
 
     const { stopCount, startCount, hasTimerEnded, time }  = useTimer(default_time);
-    const text = useText("/phrases.txt");
+    const text = useText("phrases.txt");
     const typing = useTyping(status === "running", text.words.length);
     const checker = useChecker(text.words, typing.typed, typing.cursor);
     const {results, calcResults} = useResults(checker.textChecked);
