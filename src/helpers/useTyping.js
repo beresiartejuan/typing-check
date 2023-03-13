@@ -31,8 +31,8 @@ const useTyping = (enabled = false, limit) => {
                     totalTyped.current -= 1;
                     break;
                 default:
-                    setTyped((prev) => (prev.length >= limit - 1) ? prev : prev.concat(key));
-                    setCursor((cursor) => (cursor >= limit - 1) ? cursor : cursor + 1);
+                    setTyped((prev) => (prev.length >= limit) ? prev : prev.concat(key));
+                    setCursor((cursor) => (cursor >= limit) ? cursor : cursor + 1);
                     totalTyped.current += 1;
             }
         },
