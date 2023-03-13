@@ -23,7 +23,7 @@ export default function useEngine(){
     }), []);
 
     const { stopCount, startCount, hasTimerEnded, time }  = useTimer(default_time);
-    const text = useText("typing-check/phrases.txt");
+    const text = useText("phrases.txt");
     const typing = useTyping(status === "running", text.words.length);
     const checker = useChecker(text.words, typing.typed, typing.cursor);
     const {results, calcResults} = useResults(checker.textChecked);
@@ -36,7 +36,7 @@ export default function useEngine(){
     }, [status, startCount]);
 
     const overclockHandler = useCallback(() => {
-        if(text.words.length - 1 <= typing.cursor && status === "running"){
+        if(text.words.length <= typing.cursor && status === "running"){
             stopCount();
             setStatus("overclock");
             calcResults(default_time - time);
