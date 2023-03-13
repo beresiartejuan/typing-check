@@ -38,7 +38,7 @@ export default function useEngine(){
     }, [status, startCount]);
 
     const overclockHandler = useCallback(() => {
-        if(text.words.length - 1 <= typing.cursor && status === "running"){
+        if(text.words.length <= typing.cursor && status === "running"){
             stopCount();
             setStatus("overclock");
             calcResults(default_time - time);
