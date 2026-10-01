@@ -1,61 +1,55 @@
 import { useState, useCallback } from "react";
 
+const buildInitialResults = () => ({
+    errors: 0,
+    success: 0,
+    extra: 0,
+    total: 0,
+    cpm: 0,
+});
+
 const useResults = (words) => {
 
-    const [results, setResults] = useState({
-        "errors": 0,
-        "success": 0,
-        "extra": 0,
-        "total": 0,
-        "cpm": 0
-    });
+    const [results, setResults] = useState(buildInitialResults);
 
     const calcResults = useCallback((time) => {
 
-        if(results.cpm !== 0) return;
+        setResults((prevResults) => {
 
-        console.log("Se calcularon resultados")
+            if (prevResults.cpm !== 0) return prevResults;
 
-        words.forEach(char => {
+            const summary = words.reduce(
+                (acc, char) => {
+                    acc.total += 1;
 
-            setResults(prevResults => ({
-                ...prevResults, total: prevResults.total + 1
-            }))
+                    if (!char.wasHere && !char.isHere) {
+                        acc.extra += 1;
+                        return acc;
+                    }
 
-            if(!char.wasHere && !char.isHere){
-                setResults(prevResults => ({
-                    ...prevResults, extra: prevResults.extra + 1
-                }));
-                return;
-            }
+                    if (char.isCorrect) {
+                        acc.success += 1;
+                    } else {
+                        acc.errors += 1;
+                    }
 
-            if(char.isCorrect){
+                    return acc;
+                },
+                { errors: 0, success: 0, extra: 0, total: 0 }
+            );
 
-                setResults(prevResults => ({
-                    ...prevResults, success: prevResults.success + 1
-                }));
-                return;
+            const hitCharacters = summary.success + summary.errors;
 
-            }else{
-
-                setResults(prevResults => ({
-                    ...prevResults, errors: prevResults.errors + 1
-                }));
-                return;
-
-            }
+            return {
+                ...summary,
+                cpm: time > 0 ? Math.floor((60 * hitCharacters) / time) : 0,
+            };
 
         });
 
-        setResults(prevResults => ({
-            ...prevResults, cpm: Math.floor((60 * (prevResults.errors + prevResults.success))/time)
-        }));
+    }, [words]);
 
-    }, [words, setResults, results]);
-
-    return {
-        results, calcResults
-    }
+    return { results, calcResults };
 
 };
 

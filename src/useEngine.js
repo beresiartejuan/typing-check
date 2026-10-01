@@ -11,8 +11,6 @@ export default function useEngine(){
 
     const default_time = 60;
 
-    const is_dev = false;
-
     const finalMessages = useMemo(() => ({
         "finished": {
             "styles": "text-red-500 font-bold text-lg",
@@ -25,7 +23,7 @@ export default function useEngine(){
     }), []);
 
     const { stopCount, startCount, hasTimerEnded, time }  = useTimer(default_time);
-    const text = useText(is_dev ? "http://localhost:3000/typing-check/phrases.txt" : "phrases.txt");
+    const text = useText(`${import.meta.env.BASE_URL}phrases.txt`);
     const typing = useTyping(status === "running", text.words.length);
     const checker = useChecker(text.words, typing.typed, typing.cursor);
     const {results, calcResults} = useResults(checker.textChecked);

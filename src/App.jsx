@@ -1,3 +1,5 @@
+import './index.css';
+
 import useEngine from './useEngine';
 
 import GeneratedText from "./components/GeneratedText.jsx";
@@ -9,13 +11,14 @@ import Results from './components/Results.jsx';
 function App() {
 
     const { time, status, textChecked, results, finalMessages } = useEngine();
+    const default_time = 60;
 
     return (
         <div>
             <div className="mx-auto text-center mb-5">
                 <h1 className=" text-4xl font-bold text-green-700">{"<Typing-Check\\>"}</h1>
             </div>
-            <Timer timeLeft={time}></Timer>
+            <Timer time={time} totalTime={default_time}></Timer>
             <GeneratedText words={textChecked} className="mt-3"></GeneratedText>
             { status === "ready" && 
                 <Message className="mt-4"></Message>
