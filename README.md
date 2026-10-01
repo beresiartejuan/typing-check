@@ -48,19 +48,9 @@ La URL base (`/typing-check/`) está configurada en [`vite.config.js`](vite.conf
 
 `useEngine` es el hook orquestador: maneja la máquina de estados de la partida y compone los hooks especializados.
 
-```
-              cualquier tecla
-  ready ─────────────────────► running
-                                  │
-              tipeaste todo       │        se acabó el tiempo
-           ┌──────────────────────┼──────────────────────┐
-           ▼                      │                      ▼
-       overclock                  │                  finished
-           │                      │                      │
-           └───────────┐          │          ┌───────────┘
-                       ▼          ▼
-                     Results (mismo flujo para ambos)
-```
+![Diagrama de la máquina de estados de useEngine](docs/engine-state-machine.png)
+
+<p><sub>El archivo fuente editable está en <a href="docs/engine-state-machine.excalidraw">docs/engine-state-machine.excalidraw</a> (se abre en <a href="https://excalidraw.com">excalidraw.com</a>).</sub></p>
 
 | Hook | Responsabilidad |
 |---|---|
