@@ -25,3 +25,8 @@ yarn-error.log*
 
 # playwright mcp artifacts
 .playwright-mcp/
+
+# agent skills (tooling local, no van al repo)
+.agents/
+.claude/
+skills-lock.json
