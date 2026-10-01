@@ -1,12 +1,10 @@
-import './App.css';
+import useEngine from './useEngine';
 
-import useEngine from './useEngine.js';
-
-import GeneratedText from "./components/GeneratedText.js";
-import Timer from "./components/Timer.js";
-import RestartButton from "./components/RestartButton.js";
-import Message from './components/Message';
-import Results from './components/Results';
+import GeneratedText from "./components/GeneratedText.jsx";
+import Timer from "./components/Timer.jsx";
+import RestartButton from "./components/RestartButton.jsx";
+import Message from './components/Message.jsx';
+import Results from './components/Results.jsx';
 
 function App() {
 
